@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using StackExchange.Redis;
 using projefis.Data;
 using projefis.Services;
 using System.Text;
@@ -12,8 +13,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddScoped<UserService>(); // UserService'i Scoped olarak ekliyoruz
-builder.Services.AddScoped<AdminService>(); // AdminService'i Scoped olarak ekliyoruz
+
+// Register generic repository
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+// Register custom services
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<AdminService>();
+builder.Services.AddScoped<CompanyService>();
+builder.Services.AddScoped<StockService>();
+builder.Services.AddScoped<CustomerService>();
+builder.Services.AddScoped<InvoiceService>();
+
+// Register Redis service
+builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+{
+    var configuration = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"), true);
+    return ConnectionMultiplexer.Connect(configuration);
+});
+builder.Services.AddScoped<RedisService>();
 
 // Add Swagger services
 builder.Services.AddEndpointsApiExplorer();

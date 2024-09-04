@@ -113,3 +113,6 @@
 /Users/efeataakan/Desktop/projefis/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 /Users/efeataakan/Desktop/projefis/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
 /Users/efeataakan/Desktop/projefis/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/efeataakan/Desktop/projefis/bin/Debug/net8.0/Newtonsoft.Json.dll
+/Users/efeataakan/Desktop/projefis/bin/Debug/net8.0/Pipelines.Sockets.Unofficial.dll
+/Users/efeataakan/Desktop/projefis/bin/Debug/net8.0/StackExchange.Redis.dll
